@@ -254,9 +254,13 @@ namespace ChristmasWreath {
         }
 
         private applyColorPattern() {
-            if (this._colorList.length <= 2) {
-                this._colorList = [0,
-                                   0]
+            if (!this._colorList)  {
+                this._colorList = [0xFF8522, 0xBAA550, 0x30ba2c];
+            }
+            if (this._colorList.length == 0) {
+                this._colorList = [0xFF8522,
+                                    0xBAA550,
+                                    0x30ba2c]
             }
             let colorArray = [];
             for (let i = 0; i < this._colorList.length; i++) {
@@ -278,6 +282,9 @@ namespace ChristmasWreath {
             //     new RGBVector3(255, 169, 0)];
 
             let arrayIndex = 0;
+            if (colorArray.length <= 1) {
+                console.log('Error');                
+            }
             for (let index = 0; index < colorArray.length - 1; index++) {
                 let r = colorArray[index].r;
                 let g = colorArray[index].g;
@@ -287,18 +294,17 @@ namespace ChristmasWreath {
                 let gD = colorArray[index + 1].g;
                 let bD = colorArray[index + 1].b;
 
-
                 let num_step = Math.floor(this.totalNumLeds / (colorArray.length - 1));
-
                 let small_step = 1 / num_step;
-                for (let jj = 1; jj <= num_step; jj++) {
-                    arrayIndex++;
+
+                for (let jj = 1; jj <= num_step; jj++) {                    
                     let amount = small_step * jj;
                     let r_0 = this.lerp(r, rD, amount);
                     let g_0 = this.lerp(g, gD, amount);
                     let b_0 = this.lerp(b, bD, amount);
-                    //let tmpHtml = '(' + r_0 + ', ' + g_0 + ', ' + b_0 + ')';
+
                     this.strip.setPixelColor(arrayIndex, neopixel.rgb(r_0, g_0, b_0));
+                    arrayIndex++;
                 }
             }
         }
@@ -312,10 +318,12 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public setColorPattern(colorList: number[]): void {
-            this._colorList = [];
-            for (let i =0; i < colorList.length; i++){
-                this._colorList[i] = colorList[i];
-            }            
+            
+            this._colorList = colorList;
+            console.log("colorList.length = " + this._colorList.length);
+            // for (let j =0; j < colorList.length; j++){
+            //     this._colorList[j] = colorList[j];
+            // }            
             this.applyColorPattern();
         }
 
@@ -613,107 +621,92 @@ namespace ChristmasWreath {
     }
 
 
-    
-
     /**
      * Gets hue color
     */
     //% weight=2 blockGap=8
     //% blockId="christmasring_pickColors" block="HueColor $color"
     //% color.shadow="colorWheelHsvPicker"
+    //% advanced=true
     export function hueColor(color: number): number {
         return neopixel.hsl(color / 255 * 360, 100, 50);
     }
 
-    /**
-     * Gets color hue
-    */
-    //% weight=2 blockGap=8
-    //% blockId="christmasring_pickColorHue" block="Hue $color"
-    //% color.shadow="colorWheelHsvPicker"
-    export function hue(color: number): number {
-        return (color % 255) / 255 * 360;
-    }
-
     //% block="show wheel $color"
     //% color.shadow="colorWheelPicker"
+    //% advanced=true
     export function showColorWheel(color: number): number {
-        let getWheelColor = function (color: number): number {
-            let colorWheel = [
-                { r: 0, g: 255, b: 255 },
-                { r: 60, g: 195, b: 255 },
-                { r: 120, g: 135, b: 255 },
-                { r: 180, g: 75, b: 255 },
-                { r: 240, g: 15, b: 255 },
-                { r: 255, g: 45, b: 210 },
-                { r: 255, g: 105, b: 150 },
-                { r: 255, g: 165, b: 90 },
-                { r: 255, g: 225, b: 30 },
-                { r: 225, g: 255, b: 30 },
-                { r: 165, g: 255, b: 90 },
-                { r: 105, g: 255, b: 150 },
-                { r: 45, g: 255, b: 210 }
-            ];
+    
+        let colorWheel = [
+            { r: 0, g: 255, b: 255 },
+            { r: 60, g: 195, b: 255 },
+            { r: 120, g: 135, b: 255 },
+            { r: 180, g: 75, b: 255 },
+            { r: 240, g: 15, b: 255 },
+            { r: 255, g: 45, b: 210 },
+            { r: 255, g: 105, b: 150 },
+            { r: 255, g: 165, b: 90 },
+            { r: 255, g: 225, b: 30 },
+            { r: 225, g: 255, b: 30 },
+            { r: 165, g: 255, b: 90 },
+            { r: 105, g: 255, b: 150 },
+            { r: 45, g: 255, b: 210 }
+        ];
 
-            let lerp = function (start: number, end: number, amt: number): number {
-                return (1 - amt) * start + amt * end
-            }
-            color = color >> 0;
-            color = (color > 255) ? 255 : color;
-            let _percent = color / 256;
-            let b_index = Math.floor(_percent * colorWheel.length);
-            let e_index = b_index + 1;
-            e_index = (e_index > colorWheel.length - 1) ? colorWheel.length - 1 : e_index
-
-            let start = { r: colorWheel[b_index].r, g: colorWheel[b_index].g, b: colorWheel[b_index].b }
-            let end = { r: colorWheel[e_index].r, g: colorWheel[e_index].g, b: colorWheel[e_index].b }
-            let u = _percent * colorWheel.length - 1.
-            u = u - Math.floor(u);
-
-            let r = Math.round(lerp(start.r, end.r, u));
-            let g = Math.round(lerp(start.g, end.g, u));
-            let b = Math.round(lerp(start.b, end.b, u));
-            let colorname = 'rgb(' + r + ',' + g + ',' + b + ')';
-            console.log(colorname);
-
-            let fullColorHex = function (r: number, g: number, b: number): number {                
-                return ((r << 16) + (g << 8) + b);
-            }
-            let colorNumber = fullColorHex(r, g, b);
-            
-            let hexToRgb = function (hex: number):string {
-                console.log("hex" + hex);
-                let RR = '' + (hex >> 16).toString();
-                let GG = ''; //(hex >> 8).toString();
-                let BB = ''; //(hex >> 0).toString();
-                return "" + RR + GG + BB;
-            }
-            console.log("colorNumber = " + hexToRgb(colorNumber) );
-            return colorNumber;
-
+        let lerp = function (start: number, end: number, amt: number): number {
+            return (1 - amt) * start + amt * end
         }
-        return getWheelColor(color);        
+        color = color >> 0;
+        color = (color > 255) ? 255 : color;
+        let _percent = color / 256;
+        let b_index = Math.floor(_percent * colorWheel.length);
+        let e_index = b_index + 1;
+        e_index = (e_index > colorWheel.length - 1) ? colorWheel.length - 1 : e_index
+
+        let start = { r: colorWheel[b_index].r, g: colorWheel[b_index].g, b: colorWheel[b_index].b }
+        let end = { r: colorWheel[e_index].r, g: colorWheel[e_index].g, b: colorWheel[e_index].b }
+        let u = _percent * colorWheel.length - 1.
+        u = u - Math.floor(u);
+
+        let r = Math.round(lerp(start.r, end.r, u));
+        let g = Math.round(lerp(start.g, end.g, u));
+        let b = Math.round(lerp(start.b, end.b, u));
+        let colorname = 'rgb(' + r + ',' + g + ',' + b + ')';
+        console.log(colorname);
+
+        let fullColorHex = function (r: number, g: number, b: number): number {                
+            return ((r << 16) + (g << 8) + b);
+        }
+        let colorInDecimal = fullColorHex(r,g,b);
+        
+        // let hexToRgb = function (hex: number):string {
+        //     console.log("hex" + hex);
+        //     let RR = '' + (hex >> 16).toString();
+        //     let GG = ''; //(hex >> 8).toString();
+        //     let BB = ''; //(hex >> 0).toString();
+        //     return "" + RR + GG + BB;
+        // }
+        //console.log("rgb = " + r + ", " +g  + "," + b);   
+        return colorInDecimal;
     }
 
-    //% block="show wheel hsv $color"
-    //% color.shadow="colorWheelHsvPicker"
-    export function showColorWheelHsv(color: number): number {
-        return (color % 255) / 255 * 360;
-    }
 }
 basic.showLeds(`
-    # # . . .
+    # . . . .
+    # . . . .
     . . . . .
-    # # . . .
-    # . # . .
+    . . . . .
     . . . . .
     `)
-let colorList:number[] = [
-    ChristmasWreath.showColorWheel(47),
-    ChristmasWreath.showColorWheel(50),
-    ChristmasWreath.showColorWheel(18),
-    ChristmasWreath.showColorWheel(128),
-    ChristmasWreath.showColorWheel(210)
+let colorList = [
+    ChristmasWreath.showColorWheel(0),
+    ChristmasWreath.showColorWheel(9),
+    ChristmasWreath.showColorWheel(43),
+    ChristmasWreath.hueColor(0),
+    ChristmasWreath.showColorWheel(180),
+    ChristmasWreath.showColorWheel(169),
+    ChristmasWreath.showColorWheel(230),
+    ChristmasWreath.showColorWheel(0),
 ]
 ring2 = ChristmasWreath.create()
 ring2.changeMode(LEDMode.Rainbow)
