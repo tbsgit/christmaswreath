@@ -56,15 +56,12 @@ enum Level {
     //% block="Level 15"
     Level_15 = 14
 }
-
-
-//% color="#bcda7a"
 namespace ChristmasWreath {
     /**
      * A ChristmasWreath ring
      */
 
-    class neopixelRGB {
+    class RGBVector3 {
         public r: number;
         public g: number;
         public b: number;
@@ -300,12 +297,12 @@ namespace ChristmasWreath {
                 //this.strip.showRainbow(1, 360)
                 
                 
-                let colorArray = [new neopixelRGB(255, 169, 0),
-                                  new neopixelRGB(249, 209, 0),
-                                  new neopixelRGB(116, 213, 245),
-                                  new neopixelRGB(255, 38, 141),
-                                  new neopixelRGB(145, 52, 137),
-                                    new neopixelRGB(255, 169, 0)];
+                let colorArray = [new RGBVector3(255, 169, 0),
+                                  new RGBVector3(249, 209, 0),
+                                  new RGBVector3(116, 213, 245),
+                                  new RGBVector3(255, 38, 141),
+                                  new RGBVector3(145, 52, 137),
+                                    new RGBVector3(255, 169, 0)];
 
                 let arrayIndex = 0;
                 for (let index = 0; index < colorArray.length - 1; index++) {
@@ -617,7 +614,51 @@ namespace ChristmasWreath {
     //% block="show wheel $color"
     //% color.shadow="colorWheelPicker"
     export function showColorWheel(color: number): number {
-        return (color % 255) / 255 * 360;
+        let getWheelColor = function (color: number): number {
+            let colorWheel = [
+                { r: 0, g: 255, b: 255 },
+                { r: 60, g: 195, b: 255 },
+                { r: 120, g: 135, b: 255 },
+                { r: 180, g: 75, b: 255 },
+                { r: 240, g: 15, b: 255 },
+                { r: 255, g: 45, b: 210 },
+                { r: 255, g: 105, b: 150 },
+                { r: 255, g: 165, b: 90 },
+                { r: 255, g: 225, b: 30 },
+                { r: 225, g: 255, b: 30 },
+                { r: 165, g: 255, b: 90 },
+                { r: 105, g: 255, b: 150 },
+                { r: 45, g: 255, b: 210 }
+            ];
+
+            let lerp = function (start: number, end: number, amt: number): number {
+                return (1 - amt) * start + amt * end
+            }
+            color = color >> 0;
+            color = (color > 255) ? 255 : color;
+            let _percent = color / 256;
+            let b_index = Math.floor(_percent * colorWheel.length);
+            let e_index = b_index + 1;
+            e_index = (e_index > colorWheel.length - 1) ? colorWheel.length - 1 : e_index
+
+            let start = { r: colorWheel[b_index].r, g: colorWheel[b_index].g, b: colorWheel[b_index].b }
+            let end = { r: colorWheel[e_index].r, g: colorWheel[e_index].g, b: colorWheel[e_index].b }
+            let u = _percent * colorWheel.length - 1.
+            u = u - Math.floor(u);
+
+            let r = Math.round(lerp(start.r, end.r, u));
+            let g = Math.round(lerp(start.g, end.g, u));
+            let b = Math.round(lerp(start.b, end.b, u));
+            let colorname = 'rgb(' + r + ',' + g + ',' + b + ')';
+            console.log(colorname);
+
+            let fullColorHex = function (r: number, g: number, b: number): number {                
+                return ((r << 16) + (g << 8) + b);
+            }
+            return fullColorHex(r,g,b);
+
+        }
+        return getWheelColor(color);        
     }
 
     //% block="show wheel hsv $color"
@@ -633,11 +674,17 @@ basic.showLeds(`
     # . # . .
     . . . . .
     `)
-let colorList = [ChristmasWreath.hue(147), ChristmasWreath.hue(193), ChristmasWreath.hue(170)]
+let colorList = [
+ChristmasWreath.hueColor(64),
+ChristmasWreath.showColorWheel(67),
+ChristmasWreath.hueColor(113),
+ChristmasWreath.hueColor(161)
+]
 ring2 = ChristmasWreath.create()
 ring2.changeMode(LEDMode.Rainbow)
 ring2.showStrip()
 speed = 1
+ring2.setColorPattern(colorList)
 basic.forever(function () {
     ring2.rainbowAnimation(speed)
     // ring2.setRingColor(ChristmasWreath.showColorWheel(45))
