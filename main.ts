@@ -5,13 +5,13 @@
 */
 
 enum LEDMode {
-        //% block="Rainbow Mode"
+        //% block="Rainbow2 Mode"
         Rainbow = 0,
         //% block="Equalizer Mode"
         Equalizer = 1,
         //% block="Breath Mode"
         Breath = 2,
-        //% block="Rise Mode"
+        //% block="Directional Mode"
         Rise = 3,
         //% block="Free Mode"
         Free = 4
