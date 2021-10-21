@@ -52,7 +52,7 @@ enum Level {
 /**
 * Christmas Wreath blocks
 */
-//% weight=100 color=#0dbb6f icon="๏"
+//% weight=100 color=#0dbb6f icon="֍"
 namespace ChristmasWreath {
     /**
      * A ChristmasWreath ring
@@ -112,7 +112,7 @@ namespace ChristmasWreath {
         }
 
 
- 
+
 
 
         /**
@@ -251,13 +251,13 @@ namespace ChristmasWreath {
         }
 
         private applyColorPattern() {
-            if (!this._colorList)  {
+            if (!this._colorList) {
                 this._colorList = [0xFF8522, 0xBAA550, 0x30ba2c];
             }
             if (this._colorList.length == 0) {
                 this._colorList = [0xFF8522,
-                                    0xBAA550,
-                                    0x30ba2c]
+                    0xBAA550,
+                    0x30ba2c]
             }
             if (this._colorList.length == 1) {
                 this._colorList[1] = this._colorList[0];
@@ -283,7 +283,7 @@ namespace ChristmasWreath {
 
             let arrayIndex = 0;
             if (colorArray.length <= 1) {
-                console.log('Error!');                
+                console.log('Error!');
             }
             for (let index = 0; index < colorArray.length - 1; index++) {
                 let r = colorArray[index].r;
@@ -297,7 +297,7 @@ namespace ChristmasWreath {
                 let num_step = Math.floor(this.totalNumLeds / (colorArray.length - 1));
                 let small_step = 1 / num_step;
 
-                for (let jj = 1; jj <= num_step; jj++) {                    
+                for (let jj = 1; jj <= num_step; jj++) {
                     let amount = small_step * jj;
                     let r_0 = this.lerp(r, rD, amount);
                     let g_0 = this.lerp(g, gD, amount);
@@ -318,7 +318,7 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public setColorPattern(colorList: number[]): void {
-            
+
             this._colorList = colorList;
             console.log("colorList.length = " + this._colorList.length);
             // for (let j =0; j < colorList.length; j++){
@@ -338,7 +338,7 @@ namespace ChristmasWreath {
             this.strip.showRainbow();
         }
 
-        
+
 
         private lerp(x: number, y: number, a: number) {
             return (1 - a) * x + a * y;
@@ -357,14 +357,14 @@ namespace ChristmasWreath {
                 this._isSetupRainbow = true;
                 this.strip.clear()
                 //this.strip.showRainbow(1, 360)
-                
+
                 this.applyColorPattern();
-                
+
             }
             this.rotatePixelColor(this.rainbowSpeed)
         }
 
-        
+
 
 
         /**
@@ -628,7 +628,7 @@ namespace ChristmasWreath {
     //% blockId="christmastree_pickColors" block="Hue Color $color"
     //% color.shadow="colorWheelHsvPicker"
     export function hueColor(color: number): number {
-        let color2 = ((color / 255 * 360) << 16) +  (100 << 8) +  (50);
+        let color2 = ((color / 255 * 360) << 16) + (100 << 8) + (50);
         return color2;
     }
 
@@ -639,7 +639,7 @@ namespace ChristmasWreath {
     //% color.shadow="colorWheelPicker"
     //% advanced=true
     export function showColorWheel(color: number): number {
-    
+
         let colorWheel = [
             { r: 0, g: 255, b: 255 },
             { r: 60, g: 195, b: 255 },
@@ -677,19 +677,10 @@ namespace ChristmasWreath {
         let colorname = 'rgb(' + s + ',' + h + ',' + c + ')';
         console.log(colorname);
 
-        let fullColorHex = function (r: number, g: number, b: number): number {                
+        let fullColorHex = function (r: number, g: number, b: number): number {
             return ((r << 16) + (g << 8) + b);
         }
-        let colorInDecimal = fullColorHex(s,h,c);
-        
-        // let hexToRgb = function (hex: number):string {
-        //     console.log("hex" + hex);
-        //     let RR = '' + (hex >> 16).toString();
-        //     let GG = ''; //(hex >> 8).toString();
-        //     let BB = ''; //(hex >> 0).toString();
-        //     return "" + RR + GG + BB;
-        // }
-        //console.log("rgb = " + r + ", " +g  + "," + b);   
+        let colorInDecimal = fullColorHex(s, h, c);
         return colorInDecimal;
     }
 
@@ -723,7 +714,7 @@ let colorList = [
     ChristmasWreath.hueColor(10),
     ChristmasWreath.hueColor(12),
     ChristmasWreath.hueColor(15),
-    ChristmasWreath.hueColor(10),
+    ChristmasWreath.hueColor(50),
 ]
 ring2 = ChristmasWreath.create()
 ring2.changeMode(LEDMode.Rainbow)
