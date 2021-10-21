@@ -306,6 +306,13 @@ namespace ChristmasWreath {
                     this.strip.setPixelColor(stripPixelIndex, neopixel.rgb(r_0, g_0, b_0));
                     stripPixelIndex++;
                 }
+                
+            }
+            for (; stripPixelIndex < this.strip.length() - 1; stripPixelIndex++) {
+                let r_0 = colorArray[colorArray.length - 1].r;
+                let g_0 = colorArray[colorArray.length - 1].g;
+                let b_0 = colorArray[colorArray.length - 1].b;
+                this.strip.setPixelColor(stripPixelIndex, neopixel.rgb(r_0, g_0, b_0));
             }
         }
 
@@ -707,8 +714,8 @@ basic.showLeds(`
     . . . . .
     `)
 let colorList = [
-    ChristmasWreath.showColorWheel(129),
     ChristmasWreath.showColorWheel(149),
+    ChristmasWreath.showColorWheel(129),
     ChristmasWreath.showColorWheel(185),
     ChristmasWreath.showColorWheel(214),
     ChristmasWreath.hueColor(0),
@@ -721,7 +728,7 @@ let colorList = [
     ChristmasWreath.hueColor(0),
     ChristmasWreath.hueColor(12),
     ChristmasWreath.showColorWheel(120),
-    ChristmasWreath.showColorWheel(129)
+    ChristmasWreath.showColorWheel(149)
 ]
 ring2 = ChristmasWreath.create()
 ring2.changeMode(LEDMode.Rainbow)
@@ -733,4 +740,8 @@ basic.forever(function () {
     // ring2.setRingColor(ChristmasWreath.showColorWheel(45))
     // ring2.showColor(neopixel.hsl(0, 0, 0))
     ring2.showStrip()
+})
+
+input.onLogoEvent(TouchButtonEvent.Touched, function() {
+    ring2.nextMode();
 })
