@@ -43,8 +43,10 @@ enum Level {
     Level_15 = 14
 }
 
-
-//% color="#0dbb6f"
+/**
+* Christmas Tree blocks
+*/
+//% weight=100 color=#0dbb6f icon="Ŏ"
 namespace ChristmasWreath {
     /**
      * A ChristmasWreath ring
