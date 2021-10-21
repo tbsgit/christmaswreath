@@ -1,5 +1,11 @@
+// 在這裡添加你的程式
+/**
+* Use this file to define custom functions and blocks.
+* Read more at https://makecode.microbit.org/blocks/custom
+*/
+
 enum LEDMode {
-    //% block="Rainbow2 Mode"
+    //% block="Rainbow Mode"
     Rainbow = 0,
     //% block="Equalizer Mode"
     Equalizer = 1,
@@ -44,7 +50,7 @@ enum Level {
 }
 
 /**
-* Christmas Tree blocks
+* Christmas Wreath blocks
 */
 //% weight=100 color=#0dbb6f icon="๏"
 namespace ChristmasWreath {
