@@ -281,7 +281,7 @@ namespace ChristmasWreath {
             //     new RGBVector3(145, 52, 137),
             //     new RGBVector3(255, 169, 0)];
 
-            let arrayIndex = 0;
+            let stripPixelIndex = 0;
             if (colorArray.length <= 1) {
                 console.log('Error!');
             }
@@ -294,7 +294,7 @@ namespace ChristmasWreath {
                 let gD = colorArray[index + 1].g;
                 let bD = colorArray[index + 1].b;
 
-                let num_step = Math.floor(this.totalNumLeds / (colorArray.length - 1));
+                let num_step = Math.ceil(this.totalNumLeds / (colorArray.length - 1));
                 let small_step = 1 / num_step;
 
                 for (let jj = 1; jj <= num_step; jj++) {
@@ -303,8 +303,8 @@ namespace ChristmasWreath {
                     let g_0 = this.lerp(g, gD, amount);
                     let b_0 = this.lerp(b, bD, amount);
 
-                    this.strip.setPixelColor(arrayIndex, neopixel.rgb(r_0, g_0, b_0));
-                    arrayIndex++;
+                    this.strip.setPixelColor(stripPixelIndex, neopixel.rgb(r_0, g_0, b_0));
+                    stripPixelIndex++;
                 }
             }
         }
@@ -700,13 +700,20 @@ input.onButtonPressed(Button.B, function () {
 let ring2: ChristmasWreath.ChristmasWreath = null
 let speed = 0
 basic.showLeds(`
-    # . # . #
+    # # # . #
     . . . . .
     . . . . .
     . . . . .
     . . . . .
     `)
 let colorList = [
+    ChristmasWreath.showColorWheel(129),
+    ChristmasWreath.showColorWheel(149),
+    ChristmasWreath.showColorWheel(185),
+    ChristmasWreath.showColorWheel(214),
+    ChristmasWreath.hueColor(0),
+    ChristmasWreath.hueColor(12),
+    ChristmasWreath.showColorWheel(120),
     ChristmasWreath.showColorWheel(129),
     ChristmasWreath.showColorWheel(149),
     ChristmasWreath.showColorWheel(185),
