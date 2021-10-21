@@ -707,14 +707,14 @@ basic.showLeds(`
     . . . . .
     `)
 let colorList = [
-    ChristmasWreath.showColorWheel(0),
-    ChristmasWreath.showColorWheel(9),
-    ChristmasWreath.showColorWheel(43),
-    ChristmasWreath.showColorWheel(60),
-    ChristmasWreath.hueColor(10),
+    ChristmasWreath.showColorWheel(129),
+    ChristmasWreath.showColorWheel(149),
+    ChristmasWreath.showColorWheel(185),
+    ChristmasWreath.showColorWheel(214),
+    ChristmasWreath.hueColor(0),
     ChristmasWreath.hueColor(12),
-    ChristmasWreath.hueColor(15),
-    ChristmasWreath.hueColor(50),
+    ChristmasWreath.showColorWheel(120),
+    ChristmasWreath.showColorWheel(129)
 ]
 ring2 = ChristmasWreath.create()
 ring2.changeMode(LEDMode.Rainbow)
