@@ -1,17 +1,3 @@
-input.onButtonPressed(Button.A, function () {
-    speed = speed + 1
-    ring2.setRingColor(ChristmasWreath.showColorWheel(255))
-    // ring2.showColor(neopixel.hsl(0, 0, 0))
-    ring2.showStrip()
-})
-input.onButtonPressed(Button.B, function () {
-    speed = speed - 1
-    ring2.setRingColor(ChristmasWreath.showColorWheel(45))
-    // ring2.showColor(neopixel.hsl(0, 0, 0))
-    ring2.showStrip()
-})
-let ring2: ChristmasWreath.ChristmasWreath = null
-let speed = 0
 enum LEDMode {
     //% block="Rainbow2 Mode"
     Rainbow = 0,
@@ -56,6 +42,9 @@ enum Level {
     //% block="Level 15"
     Level_15 = 14
 }
+
+
+//% color="#0dbb6f"
 namespace ChristmasWreath {
     /**
      * A ChristmasWreath ring
@@ -668,16 +657,16 @@ namespace ChristmasWreath {
         let u = _percent * colorWheel.length - 1.
         u = u - Math.floor(u);
 
-        let r = Math.round(lerp(start.r, end.r, u));
-        let g = Math.round(lerp(start.g, end.g, u));
-        let b = Math.round(lerp(start.b, end.b, u));
-        let colorname = 'rgb(' + r + ',' + g + ',' + b + ')';
+        let s = Math.round(lerp(start.r, end.r, u));
+        let h = Math.round(lerp(start.g, end.g, u));
+        let c = Math.round(lerp(start.b, end.b, u));
+        let colorname = 'rgb(' + s + ',' + h + ',' + c + ')';
         console.log(colorname);
 
         let fullColorHex = function (r: number, g: number, b: number): number {                
             return ((r << 16) + (g << 8) + b);
         }
-        let colorInDecimal = fullColorHex(r,g,b);
+        let colorInDecimal = fullColorHex(s,h,c);
         
         // let hexToRgb = function (hex: number):string {
         //     console.log("hex" + hex);
@@ -691,31 +680,9 @@ namespace ChristmasWreath {
     }
 
 }
-basic.showLeds(`
-    # . . . .
-    # . . . .
-    . . . . .
-    . . . . .
-    . . . . .
-    `)
 let colorList = [
-    ChristmasWreath.showColorWheel(0),
-    ChristmasWreath.showColorWheel(9),
-    ChristmasWreath.showColorWheel(43),
-    ChristmasWreath.hueColor(0),
-    ChristmasWreath.showColorWheel(180),
-    ChristmasWreath.showColorWheel(169),
-    ChristmasWreath.showColorWheel(230),
-    ChristmasWreath.showColorWheel(0),
+ChristmasWreath.showColorWheel(0),
+ChristmasWreath.showColorWheel(9),
+ChristmasWreath.showColorWheel(43),
+ChristmasWreath.hueColor(0)
 ]
-ring2 = ChristmasWreath.create()
-ring2.changeMode(LEDMode.Rainbow)
-ring2.showStrip()
-speed = 1
-ring2.setColorPattern(colorList)
-basic.forever(function () {
-    ring2.rainbowAnimation(speed)
-    // ring2.setRingColor(ChristmasWreath.showColorWheel(45))
-    // ring2.showColor(neopixel.hsl(0, 0, 0))
-    ring2.showStrip()
-})
