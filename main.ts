@@ -46,7 +46,7 @@ enum Level {
 /**
 * Christmas Tree blocks
 */
-//% weight=100 color=#0dbb6f icon="Ѳ"
+//% weight=100 color=#0dbb6f icon="๏"
 namespace ChristmasWreath {
     /**
      * A ChristmasWreath ring
