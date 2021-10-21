@@ -253,6 +253,56 @@ namespace ChristmasWreath {
             }
         }
 
+        private applyColorPattern() {
+            if (this._colorList.length <= 2) {
+                this._colorList = [0,
+                                   0]
+            }
+            let colorArray = [];
+            for (let i = 0; i < this._colorList.length; i++) {
+                let _r = (this._colorList[i] >> 16) & 255;
+                let _g = (this._colorList[i] >> 8) & 255;
+                let _b = this._colorList[i] & 255;
+                colorArray[i] = {
+                    r: _r,
+                    g: _g,
+                    b: _b,
+                }
+            }
+
+            // let colorArray = [new RGBVector3(255, 169, 0),
+            //     new RGBVector3(249, 209, 0),
+            //     new RGBVector3(116, 213, 245),
+            //     new RGBVector3(255, 38, 141),
+            //     new RGBVector3(145, 52, 137),
+            //     new RGBVector3(255, 169, 0)];
+
+            let arrayIndex = 0;
+            for (let index = 0; index < colorArray.length - 1; index++) {
+                let r = colorArray[index].r;
+                let g = colorArray[index].g;
+                let b = colorArray[index].b;
+
+                let rD = colorArray[index + 1].r;
+                let gD = colorArray[index + 1].g;
+                let bD = colorArray[index + 1].b;
+
+
+                let num_step = Math.floor(this.totalNumLeds / (colorArray.length - 1));
+
+                let small_step = 1 / num_step;
+                for (let jj = 1; jj <= num_step; jj++) {
+                    arrayIndex++;
+                    let amount = small_step * jj;
+                    let r_0 = this.lerp(r, rD, amount);
+                    let g_0 = this.lerp(g, gD, amount);
+                    let b_0 = this.lerp(b, bD, amount);
+                    //let tmpHtml = '(' + r_0 + ', ' + g_0 + ', ' + b_0 + ')';
+                    this.strip.setPixelColor(arrayIndex, neopixel.rgb(r_0, g_0, b_0));
+                }
+            }
+        }
+
         /**
          * Set color pattern list
         * (0, 1, 2, 3, etc...)
@@ -262,7 +312,11 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public setColorPattern(colorList: number[]): void {
-            this._colorList = colorList;            
+            this._colorList = [];
+            for (let i =0; i < colorList.length; i++){
+                this._colorList[i] = colorList[i];
+            }            
+            this.applyColorPattern();
         }
 
         /**
@@ -296,38 +350,8 @@ namespace ChristmasWreath {
                 this.strip.clear()
                 //this.strip.showRainbow(1, 360)
                 
+                this.applyColorPattern();
                 
-                let colorArray = [new RGBVector3(255, 169, 0),
-                                  new RGBVector3(249, 209, 0),
-                                  new RGBVector3(116, 213, 245),
-                                  new RGBVector3(255, 38, 141),
-                                  new RGBVector3(145, 52, 137),
-                                    new RGBVector3(255, 169, 0)];
-
-                let arrayIndex = 0;
-                for (let index = 0; index < colorArray.length - 1; index++) {
-                    let r = colorArray[index].r;
-                    let g = colorArray[index].g;
-                    let b = colorArray[index].b;
-
-                    let rD = colorArray[index + 1].r;
-                    let gD = colorArray[index + 1].g;
-                    let bD = colorArray[index + 1].b;
-
-
-                    let num_step = Math.floor(this.totalNumLeds / (colorArray.length - 1));
-                    
-                    let small_step = 1 / num_step;
-                    for (let jj = 1; jj <= num_step; jj++) {
-                        arrayIndex++;
-                        let amount = small_step * jj;
-                        let r_0 = this.lerp(r, rD, amount);
-                        let g_0 = this.lerp(g, gD, amount);
-                        let b_0 = this.lerp(b, bD, amount);
-                        //let tmpHtml = '(' + r_0 + ', ' + g_0 + ', ' + b_0 + ')';
-                        this.strip.setPixelColor(arrayIndex, neopixel.rgb(r_0, g_0, b_0 ));
-                    }
-                }
             }
             this.rotatePixelColor(this.rainbowSpeed)
         }
@@ -655,7 +679,17 @@ namespace ChristmasWreath {
             let fullColorHex = function (r: number, g: number, b: number): number {                
                 return ((r << 16) + (g << 8) + b);
             }
-            return fullColorHex(r,g,b);
+            let colorNumber = fullColorHex(r, g, b);
+            
+            let hexToRgb = function (hex: number):string {
+                console.log("hex" + hex);
+                let RR = '' + (hex >> 16).toString();
+                let GG = ''; //(hex >> 8).toString();
+                let BB = ''; //(hex >> 0).toString();
+                return "" + RR + GG + BB;
+            }
+            console.log("colorNumber = " + hexToRgb(colorNumber) );
+            return colorNumber;
 
         }
         return getWheelColor(color);        
@@ -668,17 +702,18 @@ namespace ChristmasWreath {
     }
 }
 basic.showLeds(`
-    # . # . .
-    # . # . .
+    # # . . .
+    . . . . .
     # # . . .
     # . # . .
     . . . . .
     `)
-let colorList = [
-ChristmasWreath.hueColor(64),
-ChristmasWreath.showColorWheel(67),
-ChristmasWreath.hueColor(113),
-ChristmasWreath.hueColor(161)
+let colorList:number[] = [
+    ChristmasWreath.showColorWheel(47),
+    ChristmasWreath.showColorWheel(50),
+    ChristmasWreath.showColorWheel(18),
+    ChristmasWreath.showColorWheel(128),
+    ChristmasWreath.showColorWheel(210)
 ]
 ring2 = ChristmasWreath.create()
 ring2.changeMode(LEDMode.Rainbow)
