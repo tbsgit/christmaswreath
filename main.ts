@@ -623,7 +623,10 @@ namespace ChristmasWreath {
         return neopixel.hsl(color / 255 * 360, 100, 50);
     }
 
-    //% block="show wheel $color"
+    /**
+     * Gets gradient color
+    */
+    //% block="show color wheel $color"
     //% color.shadow="colorWheelPicker"
     //% advanced=true
     export function showColorWheel(color: number): number {
@@ -682,9 +685,41 @@ namespace ChristmasWreath {
     }
 
 }
+input.onButtonPressed(Button.A, function () {
+    speed = speed + 1
+    // ring2.setRingColor(ChristmasWreath.showColorWheel(255))
+    // ring2.showColor(neopixel.hsl(0, 0, 0))
+    ring2.showStrip()
+})
+input.onButtonPressed(Button.B, function () {
+    speed = speed - 1
+    // ring2.setRingColor(ChristmasWreath.showColorWheel(45))
+    // ring2.showColor(neopixel.hsl(0, 0, 0))
+    ring2.showStrip()
+})
+let ring2: ChristmasWreath.ChristmasWreath = null
+let speed = 0
+basic.showLeds(`
+    # . # . #
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    `)
 let colorList = [
-ChristmasWreath.showColorWheel(0),
-ChristmasWreath.showColorWheel(9),
-ChristmasWreath.showColorWheel(43),
-ChristmasWreath.hueColor(0)
+    ChristmasWreath.showColorWheel(0),
+    ChristmasWreath.showColorWheel(9),
+    ChristmasWreath.showColorWheel(43),
+    ChristmasWreath.hueColor(0)
 ]
+ring2 = ChristmasWreath.create()
+ring2.changeMode(LEDMode.Rainbow)
+ring2.showStrip()
+speed = 0
+ring2.setColorPattern(colorList)
+basic.forever(function () {
+    ring2.rainbowAnimation(speed)
+    // ring2.setRingColor(ChristmasWreath.showColorWheel(45))
+    // ring2.showColor(neopixel.hsl(0, 0, 0))
+    ring2.showStrip()
+})
