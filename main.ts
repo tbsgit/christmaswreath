@@ -259,6 +259,9 @@ namespace ChristmasWreath {
                                     0xBAA550,
                                     0x30ba2c]
             }
+            if (this._colorList.length == 1) {
+                this._colorList[1] = this._colorList[0];
+            }
             let colorArray = [];
             for (let i = 0; i < this._colorList.length; i++) {
                 let _r = (this._colorList[i] >> 16) & 255;
@@ -280,7 +283,7 @@ namespace ChristmasWreath {
 
             let arrayIndex = 0;
             if (colorArray.length <= 1) {
-                console.log('Error');                
+                console.log('Error!');                
             }
             for (let index = 0; index < colorArray.length - 1; index++) {
                 let r = colorArray[index].r;
@@ -551,7 +554,7 @@ namespace ChristmasWreath {
         //% parts="christmasring"
         public setLevelColor(level: number, color: number): void {
             this.strip.setPixelColor(level, color)
-            //this.strip.setPixelColor(39 - level, color)
+            this.strip.setPixelColor(30 - level, color)
             //this.strip.setPixelColor(level + 41, color)
             //this.strip.setPixelColor(81 - level, color)
 
@@ -622,11 +625,11 @@ namespace ChristmasWreath {
      * Gets hue color
     */
     //% weight=2 blockGap=8
-    //% blockId="christmasring_pickColors" block="HueColor $color"
+    //% blockId="christmastree_pickColors" block="Hue Color $color"
     //% color.shadow="colorWheelHsvPicker"
-    //% advanced=true
     export function hueColor(color: number): number {
-        return neopixel.hsl(color / 255 * 360, 100, 50);
+        let color2 = ((color / 255 * 360) << 16) +  (100 << 8) +  (50);
+        return color2;
     }
 
     /**
@@ -716,7 +719,11 @@ let colorList = [
     ChristmasWreath.showColorWheel(0),
     ChristmasWreath.showColorWheel(9),
     ChristmasWreath.showColorWheel(43),
-    ChristmasWreath.hueColor(0)
+    ChristmasWreath.showColorWheel(60),
+    ChristmasWreath.hueColor(10),
+    ChristmasWreath.hueColor(12),
+    ChristmasWreath.hueColor(15),
+    ChristmasWreath.hueColor(10),
 ]
 ring2 = ChristmasWreath.create()
 ring2.changeMode(LEDMode.Rainbow)
