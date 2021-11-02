@@ -13,7 +13,7 @@
         "main.ts",
         "README.md",
         "christmaswreath.ts",
-        "_locales/zh/tbs-christmas-wreath-strings.json"
+        "_locales/zh-TW/tbs-christmas-wreath-strings.json"
     ],
     "testFiles": [
         "christmaswreath-test.ts"
