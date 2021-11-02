@@ -1,46 +1,39 @@
 // tests go here; this will not be compiled when this package is used as an extension.
 {
-    let ring = ChristmasWreath.create();
-
-    let speed = 0
-    basic.showLeds(`
-		. # # . .
-		# . . . #
-		# . # # #
-		# . . # .
-		. # # . .
-		`)
-    let colorList = [
-        ChristmasWreath.showColorWheel(149),
-        ChristmasWreath.showColorWheel(129),
-        ChristmasWreath.rgbColor(255, 0, 0),
-        ChristmasWreath.hueColor(0),
-        ChristmasWreath.rgbColor(255, 0, 0),
-        ChristmasWreath.rgbColor(255, 255, 0),
-        ChristmasWreath.showColorWheel(149)
-    ]
-    ring.changeMode(LEDMode.Rainbow)
-    ring.showStrip()
-    speed = 1
-    ring.setColorPattern(colorList)
-
-    basic.forever(function () {
-        //ring.update();
-        ring.rainbowAnimation(speed)
-        // ring.setRingColor(ChristmasWreath.showColorWheel(45))
-        // ring.showColor(neopixel.hsl(0, 0, 0))
+    input.onButtonPressed(Button.A, function () {
+        speed = speed + 1
         ring.showStrip()
     })
-
-    input.onButtonPressed(Button.A, () => {
-        ring.previousMode()
-    });
-    input.onButtonPressed(Button.B, () => {
+    input.onButtonPressed(Button.B, function () {
+        speed = speed - 1
+        ring.showStrip()
+    })
+    input.onLogoEvent(TouchButtonEvent.Touched, function () {
         ring.nextMode()
-    });
-
-
-    control.inBackground(function () {
-
+    })
+    let speed = 0
+    let ring: ChristmasWreath.ChristmasWreath = null
+    basic.showLeds(`
+    # . . . .
+    # . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    `)
+    ring = ChristmasWreath.create()
+    ring.changeMode(LEDMode.Rainbow)
+    ring.showStrip()
+    speed = 0
+    let colorList = [
+        ChristmasWreath.rgbColor(246, 92, 2),
+        ChristmasWreath.rgbColor(110, 28, 131),
+        ChristmasWreath.rgbColor(214, 35, 84),
+        ChristmasWreath.rgbColor(240, 5, 19),
+        ChristmasWreath.rgbColor(18, 94, 107)
+    ]
+    ring.setColorPattern(colorList)
+    basic.forever(function () {
+        ring.rainbowAnimation(speed)
+        ring.showStrip()
     })
 }

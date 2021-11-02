@@ -1,7 +1,9 @@
-// Add your code here 
 /**
-* Use this file to define custom functions and blocks.
-* Read more at https://makecode.microbit.org/blocks/custom
+* ChristmasWreath Ring 
+* @category:	Common use
+* @purpose:	add LED support to WS2812 LED strip for micro bit
+* @author:	Tiebusa
+* @version:	1.0.1
 */
 
 enum LEDMode {
