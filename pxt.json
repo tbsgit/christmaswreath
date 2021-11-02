@@ -1,5 +1,5 @@
 {
-    "name": "ChristmasWreath_v1.5",
+    "name": "ChristmasWreath",
     "version": "0.0.8",
     "description": "Techbox by TIEBUSA christmas premium",
     "dependencies": {
@@ -12,7 +12,7 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "christmaswreath.ts"
+        "christmaswreath.ts",
         "_locales/zh/tbs-christmas-wreath-strings.json"
     ],
     "testFiles": [
