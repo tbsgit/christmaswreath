@@ -660,8 +660,9 @@ namespace ChristmasWreath {
     }
 
     /**
-     * Gets gradient color
+     * Gets Gradient Color
     */
+    //% weight=2 blockGap=8
     //% block="show color wheel $color"
     //% color.shadow="colorWheelPicker"
     //% advanced=false
