@@ -258,11 +258,11 @@ namespace ChristmasWreath {
 
         private applyColorPattern() {
             if (!this._colorList) {
-                this._colorList = [0xFF8522, 0xBAA550, 0x30ba2c];
+                this._colorList = [0xFF8522, 0xf00513, 0x30ba2c];
             }
             if (this._colorList.length == 0) {
                 this._colorList = [0xFF8522,
-                    0xBAA550,
+                    0xf00513,
                     0x30ba2c]
             }
             if (this._colorList.length == 1) {
@@ -558,7 +558,7 @@ namespace ChristmasWreath {
         //% parts="christmasring"
         public setLevelColor(level: number, color: number): void {
             this.strip.setPixelColor(level, color)
-            this.strip.setPixelColor(this.totalNumLeds - level, color)
+            this.strip.setPixelColor(this.totalNumLeds - level -1, color)
             //this.strip.setPixelColor(39 - level, color)								 
             //this.strip.setPixelColor(level + 41, color)
             //this.strip.setPixelColor(81 - level, color)
@@ -607,7 +607,7 @@ namespace ChristmasWreath {
         let ring = new ChristmasWreath();
         ring.mode = LEDMode.Rainbow;
         ring.numOfLEDPerPillar = 15;
-        ring.totalNumLeds = 34;
+        ring.totalNumLeds = 30;
         ring.totalNumLevel = 15;
         ring.strip = neopixel.create(DigitalPin.P2, ring.totalNumLeds, NeoPixelMode.RGB);
         ring.rainbowSpeed = 1;

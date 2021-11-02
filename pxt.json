@@ -1,5 +1,5 @@
 {
-    "name": "ChristmasWreath_v14",
+    "name": "ChristmasWreath_v1.5",
     "version": "0.0.5",
     "description": "",
     "dependencies": {
@@ -12,8 +12,7 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "christmaswreath.ts",
-        "christmaswreath-test.ts"
+        "christmaswreath.ts"
     ],
     "testFiles": [],
     "targetVersions": {
