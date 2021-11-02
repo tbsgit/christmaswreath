@@ -1,7 +1,7 @@
 {
     "name": "ChristmasWreath_v1.5",
     "version": "0.0.8",
-    "description": "",
+    "description": "Techbox by TIEBUSA christmas premium",
     "dependencies": {
         "core": "*",
         "radio": "*",
@@ -15,7 +15,9 @@
         "christmaswreath.ts"
         "_locales/zh/tbs-christmas-wreath-strings.json"
     ],
-    "testFiles": [],
+    "testFiles": [
+        "christmaswreath-test.ts"
+    ],
     "targetVersions": {
         "target": "4.0.16",
         "targetId": "microbit"
