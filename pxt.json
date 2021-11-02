@@ -1,6 +1,6 @@
 {
     "name": "ChristmasWreath",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "description": "Techbox by TIEBUSA christmas premium",
     "dependencies": {
         "core": "*",
