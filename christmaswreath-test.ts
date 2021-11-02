@@ -16,8 +16,8 @@
     basic.showLeds(`
     # . . . .
     # . . . .
-    . . . . .
-    . . . . .
+    # . . . .
+    # . . . .
     . . . . .
     `)
     ring = ChristmasWreath.create()

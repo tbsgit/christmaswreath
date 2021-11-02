@@ -14,9 +14,9 @@ enum LEDMode {
     //% block="Breath Mode"
     Breath = 2,
     //% block="Float Mode"
-    Rise = 3,
+    Float = 3,
     //% block="Stack Mode"
-    Free = 4
+    Stack = 4
 }
 
 enum Level {
@@ -94,9 +94,9 @@ namespace ChristmasWreath {
         private _breathDir: number;
         private _breathColorOffset: number;
 
-        private _riseDuration: number;
-        private _riseState: number[];
-        private _riseColor: number[];
+        private _floatDuration: number;
+        private _floatState: number[];
+        private _floatColor: number[];
 
         private _colorList: number[];
 
@@ -108,9 +108,9 @@ namespace ChristmasWreath {
             this._breathDir = 1;
             this._breathColorOffset = 0;
 
-            this._riseState = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            this._riseColor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            this._riseDuration = 3;
+            this._floatState = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            this._floatColor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            this._floatDuration = 3;
 
         }
 
@@ -122,6 +122,7 @@ namespace ChristmasWreath {
         //% ring.defl=ring
         //% weight=90 blockGap=8
         //% parts="christmasring"
+        //% advanced=true
         public clearStrip(): void {
             this.strip.clear();
         }
@@ -209,11 +210,11 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public update(): void {
-            if (this.mode == 0) {
+            if (this.mode == LEDMode.Rainbow) {
                 this.rainbowAnimation(this.rainbowSpeed);
                 this.showStrip();
                 basic.pause(100);
-            } else if (this.mode == 1) {
+            } else if (this.mode == LEDMode.Equalizer) {
                 let mic = 128
                 try {
                     mic = input.soundLevel()
@@ -223,21 +224,22 @@ namespace ChristmasWreath {
                 this.equalizerAnimation(mic);
                 this.showStrip();
                 basic.pause(1);
-            } else if (this.mode == 2) {
+            } else if (this.mode == LEDMode.Breath) {
                 this.breathAnimation();
                 this.showStrip();
-            } else if (this.mode == 3) {
-                let mic2 = 128
+            } else if (this.mode == LEDMode.Float) {
+                let mic = 128
                 try {
-                    mic2 = input.soundLevel()
+                    mic = input.soundLevel()
                 } catch (err2) {
-                    mic2 = 128
+                    mic = 128
                 }
-                this.riseAnimation(mic2, 100)
+                this.riseAnimation(mic, 100)
                 this.showStrip();
             } else {
                 this.showStrip();
             }
+            
             this._colorOffset += 1;
             this._breathColorOffset += 1;
             this._breathT += 1;
@@ -432,7 +434,7 @@ namespace ChristmasWreath {
         /**
          * Play rise animation
          */
-        //% blockId="christmasring_riseAnimation" block="%ring play rise animation with sound level%micVale and trigger threshold%threshold"
+        //% blockId="christmasring_floatAnimation" block="%ring play rise animation with sound level%micVale and trigger threshold%threshold"
         //% ring.defl=ring
         //% weight=90 blockGap=8
         //% parts="christmasring"
@@ -454,10 +456,10 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public triggerRiseWithColor(duration: number, color: number): void {
-            this._riseDuration = duration
-            let _duration2 = this._riseDuration
-            this._riseState[0] = this._riseState[1] = _duration2
-            this._riseColor[0] = this._riseColor[1] = this.makeColor(color, 100, 50)
+            this._floatDuration = duration
+            let _duration2 = this._floatDuration
+            this._floatState[0] = this._floatState[1] = _duration2
+            this._floatColor[0] = this._floatColor[1] = this.makeColor(color, 100, 50)
         }
 
 
@@ -469,10 +471,10 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public triggerRise(duration: number): void {
-            this._riseDuration = duration
-            let _duration3 = this._riseDuration
-            this._riseState[0] = this._riseState[1] = _duration3
-            this._riseColor[0] = this._riseColor[1] = this.makeColor(Math.random() * 360, 100, 50)
+            this._floatDuration = duration
+            let _duration3 = this._floatDuration
+            this._floatState[0] = this._floatState[1] = _duration3
+            this._floatColor[0] = this._floatColor[1] = this.makeColor(Math.random() * 360, 100, 50)
         }
 
         /**
@@ -483,16 +485,16 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public moveRise(): void {
-            let _duration4 = this._riseDuration
+            let _duration4 = this._floatDuration
             this.strip.clear()
 
             for (let level = 0; level < this.numOfLEDPerPillar; level++) {
-                if (this._riseState[level] > 0) {
-                    this.setLevelColor(level, this._riseColor[level])
-                    this._riseState[level] -= 1;
-                    if (this._riseState[level] == 0 && level + 1 < this.numOfLEDPerPillar) {
-                        this._riseState[level + 1] = _duration4 + 1;
-                        this._riseColor[level + 1] = this._riseColor[level]
+                if (this._floatState[level] > 0) {
+                    this.setLevelColor(level, this._floatColor[level])
+                    this._floatState[level] -= 1;
+                    if (this._floatState[level] == 0 && level + 1 < this.numOfLEDPerPillar) {
+                        this._floatState[level + 1] = _duration4 + 1;
+                        this._floatColor[level + 1] = this._floatColor[level]
                     }
                 } else {
                     this.setLevelColor(level, this.makeColor(30, 25, 10))
@@ -597,7 +599,7 @@ namespace ChristmasWreath {
       * @param mode the default mode where the Christmas ring default setting.
       */
     //% blockId="christmasring_create" block="Create christmas ring"
-    //% weight=90 blockGap=8
+    //% weight=2 blockGap=8
     //% parts="christmasring"
     //% trackArgs=0,1
     //% blockSetVariable=ring
