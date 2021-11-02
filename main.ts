@@ -50,3 +50,9 @@ basic.forever(function () {
     // ring2.showColor(neopixel.hsl(0, 0, 0))
     ring.showStrip()
 })
+basic.forever(function () {
+    ring.rainbowAnimation(speed)
+    // ring2.setRingColor(ChristmasWreath.showColorWheel(45))
+    // ring2.showColor(neopixel.hsl(0, 0, 0))
+    ring.showStrip()
+})

@@ -5,17 +5,18 @@
 */
 
 enum LEDMode {
-    //% block="Rainbow Mode"
+    //% block="Ring Mode"
     Rainbow = 0,
     //% block="Equalizer Mode"
     Equalizer = 1,
     //% block="Breath Mode"
     Breath = 2,
-    //% block="Directional Mode"
+    //% block="Float Mode"
     Rise = 3,
-    //% block="Free Mode"
+    //% block="Stack Mode"
     Free = 4
 }
+
 enum Level {
     //% block="Level 1"
     Level_1 = 0,
@@ -50,9 +51,9 @@ enum Level {
 }
 
 /**
-* Christmas Wreath blocks
+* ChristmasWreath Ring blocks
 */
-//% weight=100 color=#0dbb6f icon="֍"
+//% weight=100 color=#00590d icon="֍"
 namespace ChristmasWreath {
     /**
      * A ChristmasWreath ring
@@ -75,6 +76,7 @@ namespace ChristmasWreath {
         strip: neopixel.Strip;
         //numOfLEDs: number;
         totalNumLeds: number;
+        totalNumLevel: number;
         numOfLEDPerPillar: number;
 
         private _colorStep: number;
@@ -96,7 +98,6 @@ namespace ChristmasWreath {
 
         private _colorList: number[];
 
-
         public updateVars(): void {
             this._colorStep = 360 / this.numOfLEDPerPillar;
             this._colorOffset = 0;
@@ -110,9 +111,6 @@ namespace ChristmasWreath {
             this._riseDuration = 3;
 
         }
-
-
-
 
 
         /**
@@ -250,6 +248,10 @@ namespace ChristmasWreath {
             }
         }
 
+        private lerp(x: number, y: number, a: number) {
+            return (1 - a) * x + a * y;
+        }
+
         private applyColorPattern() {
             if (!this._colorList) {
                 this._colorList = [0xFF8522, 0xBAA550, 0x30ba2c];
@@ -325,12 +327,12 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public setColorPattern(colorList: number[]): void {
-
-            this._colorList = colorList;
+            //this._colorList = colorList;
+            this._colorList = [];
+            for (let j = 0; j < colorList.length && j <= this.totalNumLeds - 1; j++) {
+                this._colorList[j] = colorList[j];
+            }
             console.log("colorList.length = " + this._colorList.length);
-            // for (let j =0; j < colorList.length; j++){
-            //     this._colorList[j] = colorList[j];
-            // }            
             this.applyColorPattern();
         }
 
@@ -345,12 +347,6 @@ namespace ChristmasWreath {
             this.strip.showRainbow();
         }
 
-
-
-        private lerp(x: number, y: number, a: number) {
-            return (1 - a) * x + a * y;
-        }
-
         /**
          * Play rainbow animation
          */
@@ -362,16 +358,13 @@ namespace ChristmasWreath {
             this.rainbowSpeed = speed;
             if (this._isSetupRainbow == false || this._isSetupRainbow == null) {
                 this._isSetupRainbow = true;
-                this.strip.clear()
-                //this.strip.showRainbow(1, 360)
+                this.strip.clear();
+                //this.strip.showRainbow(1, 360);
 
                 this.applyColorPattern();
-
             }
             this.rotatePixelColor(this.rainbowSpeed)
         }
-
-
 
 
         /**
@@ -517,8 +510,8 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public setRingColor(color: number): void {
-            for (let idx2 = 0; idx2 <= 19; idx2++) {
-                this.setLevelColor(idx2, color)
+            for (let idx = 0; idx <= this.totalNumLevel; idx++) {
+                this.setLevelColor(idx, color)
             }
         }
 
@@ -531,8 +524,8 @@ namespace ChristmasWreath {
         //% weight=90 blockGap=8
         //% parts="christmasring"
         public setRingColorAndBrightness(color: number, brightness: number): void {
-            for (let idx3 = 0; idx3 <= 19; idx3++) {
-                this.setLevelColor(idx3, neopixel.hsl(color, 100, brightness))
+            for (let idx = 0; idx <= this.totalNumLevel; idx++) {
+                this.setLevelColor(idx, neopixel.hsl(color, 100, brightness))
             }
         }
 
@@ -561,7 +554,8 @@ namespace ChristmasWreath {
         //% parts="christmasring"
         public setLevelColor(level: number, color: number): void {
             this.strip.setPixelColor(level, color)
-            this.strip.setPixelColor(34 - level, color)
+            this.strip.setPixelColor(this.totalNumLeds - level, color)
+            //this.strip.setPixelColor(39 - level, color)								 
             //this.strip.setPixelColor(level + 41, color)
             //this.strip.setPixelColor(81 - level, color)
 
@@ -610,6 +604,7 @@ namespace ChristmasWreath {
         ring.mode = LEDMode.Rainbow;
         ring.numOfLEDPerPillar = 15;
         ring.totalNumLeds = 34;
+        ring.totalNumLevel = 15;
         ring.strip = neopixel.create(DigitalPin.P2, ring.totalNumLeds, NeoPixelMode.RGB);
         ring.rainbowSpeed = 1;
 
@@ -627,12 +622,33 @@ namespace ChristmasWreath {
         return _level;
     }
 
-
     /**
-     * Gets hue color
+     * Gets HSL Color
     */
     //% weight=2 blockGap=8
-    //% blockId="christmastree_pickColors" block="Hue Color $color"
+    //% blockId="christmasring_pickColors" block="Color $color"
+    //% color.shadow="colorWheelHsvPicker"
+    export function color(color: number): number {
+        return neopixel.hsl(color / 255 * 360, 100, 50);
+    }
+
+    /**
+     * Gets red, green, blue channels into a RGB color
+     * @param red value of the red channel between 0 and 255. eg: 255
+     * @param green value of the green channel between 0 and 255. eg: 255
+     * @param blue value of the blue channel between 0 and 255. eg: 255
+     */
+    //% weight=2 blockGap=8
+    //% blockId="christmasring_pickRgbColors" block="red %red|green %green|blue %blue"
+    export function rgbColor(red: number, green: number, blue: number): number {
+        return neopixel.rgb(red, green, blue);
+    }
+
+    /**
+     * Gets Color hue
+    */
+    //% weight=2 blockGap=8
+    //% blockId="christmasring_pickColorHue" block="Hue $color"
     //% color.shadow="colorWheelHsvPicker"
     export function hueColor(color: number): number {
         let color2 = ((color / 255 * 360) << 16) + (100 << 8) + (50);
@@ -644,7 +660,7 @@ namespace ChristmasWreath {
     */
     //% block="show color wheel $color"
     //% color.shadow="colorWheelPicker"
-    //% advanced=true
+    //% advanced=false
     export function showColorWheel(color: number): number {
 
         let colorWheel = [
