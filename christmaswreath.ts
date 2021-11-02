@@ -627,16 +627,6 @@ namespace ChristmasWreath {
     }
 
     /**
-     * Gets HSL Color
-    */
-    //% weight=2 blockGap=8
-    //% blockId="christmasring_pickColors" block="Color $color"
-    //% color.shadow="colorWheelHsvPicker"
-    export function color(color: number): number {
-        return neopixel.hsl(color / 255 * 360, 100, 50);
-    }
-
-    /**
      * Gets red, green, blue channels into a RGB color
      * @param red value of the red channel between 0 and 255. eg: 255
      * @param green value of the green channel between 0 and 255. eg: 255
@@ -649,7 +639,7 @@ namespace ChristmasWreath {
     }
 
     /**
-     * Gets Color hue
+     * Gets Color Hue
     */
     //% weight=2 blockGap=8
     //% blockId="christmasring_pickColorHue" block="Hue $color"
