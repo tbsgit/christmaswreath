@@ -15,8 +15,8 @@ enum LEDMode {
     Breath = 2,
     //% block="Float Mode"
     Float = 3,
-    //% block="Stack Mode"
-    Stack = 4
+    //% block="Free Mode"
+    Free = 4
 }
 
 enum Level {

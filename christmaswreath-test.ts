@@ -14,10 +14,10 @@
     let ring: ChristmasWreath.ChristmasWreath = null
     basic.showLeds(`
     # # # # #
+    # . # . #
     . . # . .
     . . # . .
-    . . # . .
-    . . # . .
+    . # # # .
     `)
     ring = ChristmasWreath.create()
     ring.changeMode(LEDMode.Rainbow)
@@ -26,7 +26,7 @@
         ChristmasWreath.rgbColor(0, 0, 0),
         ChristmasWreath.rgbColor(0, 0, 0),
         ChristmasWreath.showColorWheel(201),
-        ChristmasWreath.rgbColor(255, 255, 255),
+        ChristmasWreath.rgbColor(0, 0, 0),
         ChristmasWreath.rgbColor(0, 0, 0),
         ChristmasWreath.rgbColor(0, 0, 255)
     ])
