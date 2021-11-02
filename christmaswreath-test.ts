@@ -17,7 +17,7 @@
     # . . . .
     # . . . .
     # . . . .
-    # . . . .
+    . . . . .
     . . . . .
     `)
     ring = ChristmasWreath.create()
