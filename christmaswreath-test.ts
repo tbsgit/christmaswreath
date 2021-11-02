@@ -1,4 +1,3 @@
-// tests go here; this will not be compiled when this package is used as an extension.
 {
     input.onButtonPressed(Button.A, function () {
         speed = speed + 1
@@ -14,26 +13,28 @@
     let speed = 0
     let ring: ChristmasWreath.ChristmasWreath = null
     basic.showLeds(`
-    # . . . .
-    # . . . .
-    # . . . .
-    . . . . .
-    . . . . .
+    # # # # #
+    . . # . .
+    . . # . .
+    . . # . .
+    . . # . .
     `)
     ring = ChristmasWreath.create()
     ring.changeMode(LEDMode.Rainbow)
+    ring.setColorPattern([
+        ChristmasWreath.rgbColor(255, 0, 0),
+        ChristmasWreath.rgbColor(0, 0, 0),
+        ChristmasWreath.rgbColor(0, 0, 0),
+        ChristmasWreath.showColorWheel(201),
+        ChristmasWreath.rgbColor(255, 255, 255),
+        ChristmasWreath.rgbColor(0, 0, 0),
+        ChristmasWreath.rgbColor(0, 0, 255)
+    ])
     ring.showStrip()
     speed = 0
-    let colorList = [
-        ChristmasWreath.rgbColor(246, 92, 2),
-        ChristmasWreath.rgbColor(110, 28, 131),
-        ChristmasWreath.rgbColor(214, 35, 84),
-        ChristmasWreath.rgbColor(240, 5, 19),
-        ChristmasWreath.rgbColor(18, 94, 107)
-    ]
-    ring.setColorPattern(colorList)
     basic.forever(function () {
         ring.rainbowAnimation(speed)
         ring.showStrip()
     })
+
 }
