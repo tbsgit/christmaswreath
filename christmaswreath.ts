@@ -7,7 +7,7 @@
 */
 
 enum LEDMode {
-    //% block="Ring Mode"
+    //% block="Rainbow Mode"
     Rainbow = 0,
     //% block="Equalizer Mode"
     Equalizer = 1,
@@ -139,9 +139,7 @@ namespace ChristmasWreath {
         }
 
         /**
-         * Shows a rainbow pattern on all LEDs.
-         * @param startHue the start hue value for the rainbow, eg: 1
-         * @param endHue the end hue value for the rainbow, eg: 360
+         * Change Mode.         
          */
         //% blockId="christmasring_changeMode" block="%ring|change mode to %mode"
         //% ring.defl=ring
@@ -150,6 +148,17 @@ namespace ChristmasWreath {
         public changeMode(m: LEDMode): void {
             this._isSetupRainbow = false;
             this.mode = m;
+        }
+
+        /**
+         * Get cuurent mode.         
+         */
+        //% blockId="christmasring_getMode" block="%ring|get current mode"
+        //% ring.defl=ring
+        //% weight=85 blockGap=8
+        //% parts="christmasring"
+        public getMode(): LEDMode {
+            return this.mode;
         }
 
         /**
@@ -653,7 +662,7 @@ namespace ChristmasWreath {
      * Gets Gradient Color
     */
     //% weight=2 blockGap=8
-    //% block="show color wheel $color"
+    //% block="Color Wheel $color"
     //% color.shadow="colorWheelPicker"
     //% advanced=false
     export function showColorWheel(color: number): number {

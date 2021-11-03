@@ -23,6 +23,7 @@
     "ChristmasWreath.ChristmasWreath.clearStrip|block": "%ring|清除LED燈帶顏色",
     "ChristmasWreath.ChristmasWreath.showStrip|block": "%ring|顯示LED燈帶顏色",
     "ChristmasWreath.ChristmasWreath.changeMode|block": "%ring|改變燈效模式為%mode",
+    "ChristmasWreath.ChristmasWreath.getMode|block": "%ring|取得燈效模式",
     "ChristmasWreath.ChristmasWreath.rotatePixelColor|block": "%ring|移動燈帶顏色%step|個像數",
     "ChristmasWreath.ChristmasWreath.nextMode|block": "%ring|下一個燈效模式",
     "ChristmasWreath.ChristmasWreath.previousMode|block": "%ring|上一個燈效模式",
