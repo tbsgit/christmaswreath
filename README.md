@@ -28,23 +28,27 @@ This image may take a few minutes to refresh.
 
 ## Sample Code
 
+
 Dolphin (default color)
 https://makecode.microbit.org/_D43DihAJTAgP
 
 Dolphin (user custom color)
-https://makecode.microbit.org/_8mHiKbibz8RE
+https://makecode.microbit.org/_aR3g6iKHX1i7
+
+
 
 Ring (default color)
-https://makecode.microbit.org/_EYeVuJ8wTVFs
+https://makecode.microbit.org/_XzrWzvP6LJLF
 
 Ring (custom color)
-https://makecode.microbit.org/_MuqT8DYVMXPJ
+https://makecode.microbit.org/_T0HfrffVK7w0
 
 Ring (custom speed)
 https://makecode.microbit.org/_gTV55t6Rj4VV
 
 Ring (strip color advanced)
 https://makecode.microbit.org/_YVv4WChCtHw2
+
 
 Fade (simple)
 https://makecode.microbit.org/_Aa4Fh99V1Ts7
