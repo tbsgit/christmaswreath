@@ -1,17 +1,20 @@
 {
     input.onButtonPressed(Button.A, function () {
         speed = speed + 1
-        ring.showStrip()
+        wreath.showStrip()
     })
     input.onButtonPressed(Button.B, function () {
         speed = speed - 1
-        ring.showStrip()
+        wreath.showStrip()
     })
     input.onLogoEvent(TouchButtonEvent.Touched, function () {
-        ring.nextMode()
+        wreath.nextMode();
+        mode = wreath.getMode();
+        basic.showNumber(mode)
     })
+
     let speed = 0
-    let ring: ChristmasWreath.ChristmasWreath = null
+    let wreath: ChristmasWreath.ChristmasWreath = null
     basic.showLeds(`
     # # # # #
     # . # . #
@@ -19,22 +22,26 @@
     . . # . .
     . # # # .
     `)
-    ring = ChristmasWreath.create()
-    ring.changeMode(LEDMode.Rainbow)
-    ring.setColorPattern([
-        ChristmasWreath.rgbColor(255, 0, 0),
-        ChristmasWreath.rgbColor(0, 0, 0),
-        ChristmasWreath.rgbColor(0, 0, 0),
-        ChristmasWreath.showColorWheel(201),
-        ChristmasWreath.rgbColor(0, 0, 0),
-        ChristmasWreath.rgbColor(0, 0, 0),
-        ChristmasWreath.rgbColor(0, 0, 255)
+    wreath = ChristmasWreath.create()
+    wreath.changeMode(LEDMode.Dolphin);
+    let mode = wreath.getMode();
+    wreath.setColorPattern([
+        ChristmasWreath.rgbColor(255, 137, 0),
+        ChristmasWreath.rgbColor(26, 255, 0),
+        ChristmasWreath.rgbColor(79, 0, 255),
+        ChristmasWreath.rgbColor(255, 128, 160)
     ])
-    ring.showStrip()
-    speed = 0
+    wreath.showStrip()
+    speed = 1
+
     basic.forever(function () {
-        ring.rainbowAnimation(speed)
-        ring.showStrip()
+        if (mode == LEDMode.Dolphin) {
+            wreath.dolphinAnimation(speed)
+            wreath.showStrip();
+            basic.pause(100)
+        } else {
+            wreath.update()
+        }
     })
 
 }
