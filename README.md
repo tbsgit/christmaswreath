@@ -29,7 +29,7 @@ This image may take a few minutes to refresh.
 ## Sample Code
 
 Dolphin (default color)
-https://makecode.microbit.org/_AFKTpRYwthj5
+https://makecode.microbit.org/_D43DihAJTAgP
 
 Dolphin (user custom color)
 https://makecode.microbit.org/_8mHiKbibz8RE
