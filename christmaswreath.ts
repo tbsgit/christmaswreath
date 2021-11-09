@@ -3,7 +3,7 @@
 * @category: Digital Art
 * @purpose: add LED support to WS2812 LED strip for micro bit
 * @author: Tiebusa
-* @version: 1.0.4
+* @version: 1.0.5
 */
 
 enum LEDMode {
@@ -466,7 +466,7 @@ namespace ChristmasWreath {
         //% wreath.defl=wreath
         //% weight=80 blockGap=8
         //% parts="christmaswreath"
-        public showRainbow(): void {
+        private showRainbow(): void {
             this.strip.showRainbow();
         }
 
