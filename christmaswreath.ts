@@ -135,7 +135,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmaswreath_showStrip" block="%wreath show led color"
         //% wreath.defl=wreath
-        //% weight=50 blockGap=8
+        //% weight=80 blockGap=8
         //% parts="christmaswreath"
         public showStrip(): void {
             this.strip.show();
@@ -176,21 +176,21 @@ namespace ChristmasWreath {
          */
         //% blockId="christmaswreath_getMode" block="%wreath|get current mode"
         //% wreath.defl=wreath
-        //% weight=85 blockGap=8
+        //% weight=70 blockGap=8
         //% parts="christmaswreath"
+        //% advanced=true
         public getMode(): LEDMode {
             return this.mode;
         }
 
         /**
-         * Shows a ring pattern on all LEDs.
-         * @param startHue the start hue value for the wreath, eg: 1
-         * @param endHue the end hue value for the wreath, eg: 360
+         * Rotate a pixel pattern among the LED strip.
          */
-        //% blockId="christmaswreath_rotatePixelColor" block="%wreath|move pixel by %mode|pixel"
+        //% blockId="christmaswreath_rotatePixelColor" block="%wreath|rotate pixel by %mode|pixel"
         //% wreath.defl=wreath
-        //% weight=85 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmaswreath"
+        //% advanced=true
         public rotatePixelColor(speed: number): void {
             this.ringSpeed = speed;
             if (this.ringSpeed > 5) {
@@ -237,7 +237,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmaswreath_update" block="%wreath update lighting animation"
         //% wreath.defl=wreath
-        //% weight=50 blockGap=8
+        //% weight=75 blockGap=8
         //% parts="christmaswreath"
         public update(): void {
             if (this.mode == LEDMode.Ring) {
@@ -435,7 +435,7 @@ namespace ChristmasWreath {
         */
         //% blockId="christmaswreath_setColorPattern" block="%wreath|set color pattern to %colorList to "
         //% wreath.defl=wreath
-        //% weight=50 blockGap=8
+        //% weight=80 blockGap=8
         //% parts="christmaswreath"
         public setColorPattern(colorList: number[]): void {
             //this._colorList = colorList;
