@@ -25,6 +25,57 @@ This image may take a few minutes to refresh.
 
 ![A rendered view of the blocks](https://github.com/tbsgit/christmaswreath/raw/master/.github/makecode/blocks.png)
 
+
+## Sample Code
+
+Dolphin (default color)
+https://makecode.microbit.org/_AFKTpRYwthj5
+
+Dolphin (user custom color)
+https://makecode.microbit.org/_8mHiKbibz8RE
+
+Ring (default color)
+https://makecode.microbit.org/_EYeVuJ8wTVFs
+
+Ring (custom color)
+https://makecode.microbit.org/_MuqT8DYVMXPJ
+
+Ring (custom speed)
+https://makecode.microbit.org/_gTV55t6Rj4VV
+
+Ring (strip color advanced)
+https://makecode.microbit.org/_YVv4WChCtHw2
+
+Fade (simple)
+https://makecode.microbit.org/_Aa4Fh99V1Ts7
+
+Bubble (Simple 50 quiet environment)
+https://makecode.microbit.org/_c1iYtFL2jY5W
+
+Bubble (Change mic threshold = to 100)
+https://makecode.microbit.org/_0wdadWYoL3dh
+
+Bubble (Custom Bubble Color)
+https://makecode.microbit.org/_H6KHoEdLt6EP
+
+Change Mode (Press Logo to change mode)
+ 0 = Ring
+ 1 = Dolphin
+ 2 = Fade
+ 3 = Bubble
+https://makecode.microbit.org/_WAAgW3DwYiUh
+
+Free Mode (Advanced - Random Color appearing)
+https://makecode.microbit.org/_6tM0bidPU0LD
+
+
+Free Mode (Basic Simple Color)
+https://makecode.microbit.org/_h8TDcmJs2Hhy
+
+
+
+
+
 #### Metadata (used for search, rendering)
 
 * for PXT/microbit
