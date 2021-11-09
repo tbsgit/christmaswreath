@@ -152,7 +152,11 @@ namespace ChristmasWreath {
         //% parts="christmaswreath"
         //% advanced=true
         public setMicThreshold(mic: number = 50): void {
-            this._defaultMicThreshold = mic;
+            if (mic >=0 && mic <= 255) {
+                this._defaultMicThreshold = mic;
+            } else {
+                this._defaultMicThreshold = 50;
+            }
         }
 
         /**
