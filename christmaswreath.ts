@@ -790,15 +790,26 @@ namespace ChristmasWreath {
     }
 
     /**
+    * Converts a hue saturation luminosity value into a RGB color
+    * @param h hue from 0 to 360
+    * @param s saturation from 0 to 99
+    * @param l luminosity from 0 to 99
+    */
+    //% blockId="christmaswreath_neopixelHSL" block="hue %h|saturation %s|luminosity %l"
+    export function hsl(h: number, s: number, l: number): number {
+        return neopixel.hsl(h, s, l);
+    }
+
+    /**
      * Gets Color Hue
     */
     //% weight=2 blockGap=8
     //% blockId="christmaswreath_pickColorHue" block="Hue $color"
     //% color.shadow="colorWheelHsvPicker"
-    export function hueColor(color: number): number {
-        let color2 = ((color / 255 * 360) << 16) + (100 << 8) + (50);
-        return color2;
-    }
+    //export function hueColor(color: number): number {
+    //    let color2 = ((color / 255 * 360) << 16) + (100 << 8) + (50);
+    //    return color2;
+    //}
 
     /**
      * Gets Gradient Color
