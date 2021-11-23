@@ -795,7 +795,9 @@ namespace ChristmasWreath {
     * @param s saturation from 0 to 99
     * @param l luminosity from 0 to 99
     */
+    //% weight=2 blockGap = 8
     //% blockId="christmaswreath_neopixelHSL" block="hue %h|saturation %s|luminosity %l"
+    //% color.shadow="colorHslPicker"
     export function hsl(h: number, s: number, l: number): number {
         return neopixel.hsl(h, s, l);
     }
