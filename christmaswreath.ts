@@ -593,7 +593,7 @@ namespace ChristmasWreath {
         /**
          * Trigger bubble led effect
          */
-        //% blockId="christmaswreath_triggerBubbleWithColor" block="%wreath trigger bubble led effect with %duration|duration and %color|color"
+        //% blockId="christmaswreath_triggerBubbleWithColor" block="%wreath trigger bubble led effect with %duration|duration and %color|hue color"
         //% wreath.defl=wreath
         //% weight=50 blockGap=8
         //% parts="christmaswreath"
