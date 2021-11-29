@@ -790,13 +790,13 @@ namespace ChristmasWreath {
     }
 
     /**
-    * Converts a hue saturation luminosity value into a RGB color
+    * Converts a hue saturation lightness value into a RGB color
     * @param h hue from 0 to 360
     * @param s saturation from 0 to 99
-    * @param l luminosity from 0 to 99
+    * @param l lightness from 0 to 99
     */
     //% weight=2 blockGap = 8
-    //% blockId="christmaswreath_neopixelHSL" block="hue %h|saturation %s|luminosity %l"
+    //% blockId="christmaswreath_neopixelHSL" block="hue %h|saturation %s|lightness %l"
     //% color.shadow="colorHslPicker"
     export function hsl(h: number, s: number, l: number): number {
         return neopixel.hsl(h, s, l);
